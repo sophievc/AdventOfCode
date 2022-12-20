@@ -3,7 +3,9 @@ package year2022.days;
 import common.Day;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Day7 extends Day {
     public Day7(){
@@ -17,34 +19,53 @@ public class Day7 extends Day {
 
     static int test1(List<String> input) {
         int sum = 0;
+        Graph graph = new Graph();
+        Map<String, Integer> folderSizes = new HashMap<>();
         for (String s: input) {
+            if (s.startsWith("$")) {
+                if(s.contains("cd")) {
 
+                }
+            }
         }
-
         return sum;
     }
 
-    class Directory {
-        String name;
-        //List<Directory> subDirectories;
-        List<Integer> files;
+    static Vertex openFolder(Graph g, String currentFolder, String folder) {
+        if (folder.equals("..")) {
+            return g.getAdjVertices()
+        }
+    }
 
-        public Directory(String name) {
-            this.name = name;
-            this.files = new ArrayList<Integer>();
+    static class Vertex {
+        String label;
+        Vertex(String label) {
+            this.label = label;
         }
 
-        public void addFile(Integer size) {
-            this.files.add(size);
+        // equals and hashCode
+    }
+
+    static class Graph {
+        private Map<Vertex, List<Vertex>> adjVertices;
+
+        public Graph() {
+            this.adjVertices = new HashMap<Vertex, List<Vertex>>();
         }
 
-        public int sumFiles() {
-            int sum = 0;
-            for (int i: this.files
-                 ) {
-                sum += i;
-            }
-            return sum;
+        void addVertex(String label) {
+            adjVertices.putIfAbsent(new Vertex(label), new ArrayList<>());
+        }
+
+        void addEdge(String label1, String label2) {
+            Vertex v1 = new Vertex(label1);
+            Vertex v2 = new Vertex(label2);
+            adjVertices.get(v1).add(v2);
+            adjVertices.get(v2).add(v1);
+        }
+
+        List<Vertex> getAdjVertices(String label) {
+            return adjVertices.get(new Vertex(label));
         }
 
     }
